@@ -1,2 +1,9 @@
 # Project exclude paths
 /cmake-build-debug/
+/.idea/
+/.vscode/
+/a.out
+/CMakeLists.txt
+/try.txt
+/caractere.o
+/hoffman.exe

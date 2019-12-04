@@ -14,7 +14,6 @@ typedef struct t_element
 {
     arbre pArbre ;
     struct t_element *suiv;
-    struct t_element *precedent;
 }element;
 typedef element* liste ;
 
