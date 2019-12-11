@@ -1,6 +1,8 @@
 #ifndef CARACTERE_H
 #define CARACTERE_H
 
+
+// test
 typedef struct t_noeud
 {
     struct t_noeud* droit ;
