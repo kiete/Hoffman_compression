@@ -2,6 +2,7 @@
 #include "caractere.h"
 #include "ecriture.h"
 #include "arbre.h"
+#include "codage.h"
 
 // Buffersize est globale
 int bufferSize;
@@ -51,11 +52,11 @@ void ecriture(FILE *in, FILE *out, arbre a)
     char c, len , carac ;
     char *buffer [8] ;
     char *m_buffer; 
-    arbre a = fileToHuffman(in)
+    arbre a = fileToHuffman(in);
     dico d = get_table(a);
 
     while (c = fgetc(in) != feof){
-        decode(c,dico,m_buffer,&len);
+        decode(c,d,m_buffer,&len);
         // Need to print serialisation
         for (i=0 ; i<len ; i++){
             buffer[j++] = m_buffer[i] ;

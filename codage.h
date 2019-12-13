@@ -2,13 +2,12 @@
 #define CODAGE_H
 #include "arbre.h"
 
-struct {
+typedef struct dico_t
+{
     char c;
     char* seqBits;
     int len;
-} dico_t;
-
-typedef struct dico_t dico;
+} dico ;
 
 // etablit la correspondance d'un char avec sa sequence de bits
 void codage_dico(arbre a, dico table[], int MaxCar);
