@@ -20,4 +20,8 @@ void codage_dico(arbre a, dico table[], int MaxCar){
     }
 }
 
-
+entree decode(char c, dico d){
+    int i = 0;
+    while (d[i++].c != c);
+    return d[i];
+}

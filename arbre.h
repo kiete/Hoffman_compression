@@ -55,9 +55,6 @@ void serialisation(arbre a, char *str, int* i);
 // Transforme une str en arbre
 arbre deserialisation(char *chaine, int *i);
 
-// Calcule le max entre 2 entiers
-int max (int a, int b);
-
 // Calcule la hauteur d'un arbre
 int hauteur(arbre a);
 

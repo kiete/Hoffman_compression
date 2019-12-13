@@ -1,15 +1,10 @@
 #include <stdio.h>
-#include "caractere.h"
 #include "ecriture.h"
 #include "arbre.h"
 #include "codage.h"
 
 // Buffersize est globale
 int bufferSize;
-
-void addBit(&i , char* carac){
-
-}
 
 void compressChar(char c, arbre a, char *tab, int* i){
     char* miniBuffer;
@@ -48,18 +43,20 @@ char bitToCar (char *tab){
 
 void ecriture(FILE *in, FILE *out, arbre a)
 {
-    int i , j;
+    int i , j , size;
     char c, len , carac ;
     char *buffer [8] ;
-    char *m_buffer; 
     arbre a = fileToHuffman(in);
-    dico d = get_table(a);
+    size = laFonctionDeTheo(a);
+    dico d = get_table(a,size);
+    entree e;
 
+    int j=0;
     while (c = fgetc(in) != feof){
-        decode(c,d,m_buffer,&len);
-        // Need to print serialisation
-        for (i=0 ; i<len ; i++){
-            buffer[j++] = m_buffer[i] ;
+        e = decode(c,d);
+        // Need to fprintf serialisation
+        for (i=0 ; i< e.len ; i++){
+            buffer[j++] = e.seqBits[i];
             if(j==8){
                 j=0 ;
                 carac = bitToCar(buffer) ;

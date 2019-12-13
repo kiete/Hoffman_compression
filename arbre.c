@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "arbre.h"
+#include <math.h>
 #define T_MAX 100
 
 int est_arbre_vide(arbre a){
@@ -45,12 +46,6 @@ void set_carac(arbre a, char c){
     a->carac = c ;
 }
 
-int max (int a, int b){
-    if (a>b) return a ;
-    else return b ;
-}
-
-// calcule la hauteur d'un arbre
 int hauteur(arbre a){
     if(est_arbre_vide(a)) return 0 ;
     else {
