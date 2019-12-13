@@ -11,7 +11,7 @@ struct {
 typedef struct dico_t dico;
 
 // etablit la correspondance d'un char avec sa sequence de bits
-void codage_dico(char c, arbre a, dico *Dico);
+void codage_dico(arbre a, dico table[], int MaxCar);
 
 // 
 

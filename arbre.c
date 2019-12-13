@@ -58,6 +58,9 @@ int hauteur(arbre a){
     }
 }
 
+int est_feuille(arbre a){
+    return(droit(a)==NULL && gauche(a)==NULL) ;
+}
 
 char* serialisation_plus(arbre a){
     char *str;
@@ -105,4 +108,13 @@ arbre deserialisation (char* chaine, int*i){
         //return pointeur;
     }
     return pointeur;
+}
+
+// parcours en profondeur
+void parcours_profondeur(arbre a){
+    if(!est_arbre_vide(a)){
+        printf("%d\n", racine(a)) ;
+        parcours_profondeur(filsGauche(a)) ;
+        parcours_profondeur(filsDroit(a)) ;
+    }
 }

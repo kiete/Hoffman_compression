@@ -61,6 +61,9 @@ int max (int a, int b);
 // Calcule la hauteur d'un arbre
 int hauteur(arbre a);
 
+// Vérifie si un noeud est une feuille
+int est_feuille(arbre a);
+
 // Effectue la serialisation d'un arbre
 char* serialisation_plus(arbre a);
 void serialisation(arbre a, char*str, int*i);
@@ -68,6 +71,9 @@ void serialisation(arbre a, char*str, int*i);
 // Effectue la deserialisation d'un arbre
 arbre deserialisation_sup(char *chaine);
 arbre deserialisation (char* chaine, int*i);
+
+// parcours en profondeur
+void parcours_profondeur(arbre a);
 
 
 #endif
