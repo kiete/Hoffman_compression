@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "arbre.h"
-#include "codage.h"
 #include <math.h>
+#include "arbre.h"
+#define max(a, b) (((a) < (b)) ? b : a)
+
 #define T_MAX 100
 
 int est_arbre_vide(arbre a){
@@ -106,4 +107,3 @@ arbre deserialisation (char* chaine, int*i){
     }
     return pointeur;
 }
-

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "arbre.h"
 #include "codage.h"
+#include "arbre.h"
 
 int main()
 {
@@ -18,8 +18,10 @@ int main()
     set_carac(ajoute_droit(gauche(a->gauche)), 'p') ;
     //printf("Hauteur de l'arbre : %d\n\n", hauteur(a)) ;
     //char tab[5];
-    dico table[100];
-    parcours_profondeur(a, 0, table);
+    entree table[100];
+    dico d = &(table[0]);
+    char *tab = malloc(sizeof(hauteur(a) + 1));
+    parcours_profondeur(a, 0, table , tab);
     printf("essai\n");
     /*for(int i=0 ; i<5 ; i++){
         printf("%c  ", tab[i]);
@@ -33,7 +35,10 @@ int main()
         printf("\n\n");
     }*/
     for(int i=0 ; i<5 ; i++){
-        printf("char : %c - codage : %s - longueur : %d\n", table[i]->c, table[i]->seqBits, table[i]->len) ;
+        printEntree(table[i]);
     }
+
+    
+
     return 0 ;
 }

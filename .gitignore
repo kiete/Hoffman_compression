@@ -1,10 +1,22 @@
 # Project exclude paths
+# Dossiers d'IDE
 /cmake-build-debug/
 /.idea/
 /.vscode/
-/a.out
-/CMakeLists.txt
-/try.txt
-/caractere.o
-/hoffman.exe
-/test.txt
+CMakeLists.txt
+
+# Les executables
+a.out
+hoffman.exe
+test.exe
+
+# Les .o
+caractere.o
+arbre.o
+codage.o
+ecriture.o
+
+# Fichiers de test
+test.txt
+try.txt
+yo.txt

@@ -1,15 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "caractere.h"
-#include "ecriture.h"
 #include "arbre.h"
 #include "codage.h"
+#include "ecriture.h"
 
 // Buffersize est globale
 int bufferSize;
-
-void addBit(&i , char* carac){
-
-}
 
 void compressChar(char c, arbre a, char *tab, int* i){
     char* miniBuffer;
@@ -34,42 +31,43 @@ void decalle(char* tab , int i , int taille){
     }
 }
 
-char bitToCar (char *tab){
+unsigned char bitToCar (char *tab){
     int i ;
     char sum ;
 
     sum = 0 ;
     for (i=0 ; i<8 ; i++){
         sum *= 2;
-        sum += tab[i];
+        sum += tab[i]-'0';
+        //printf("who: %c\n" , tab[i]);
     }
     return sum;
 }
 
-void ecriture(FILE *in, FILE *out, arbre a)
+void ecriture(FILE *in, FILE *out, dico d)
 {
     int i , j;
     char c, len , carac ;
-    char *buffer [8] ;
-    char *m_buffer; 
-    arbre a = fileToHuffman(in);
-    dico d = get_table(a);
+    char buffer[8] ;
+    entree e;
 
-    while (c = fgetc(in) != feof){
-        decode(c,d,m_buffer,&len);
+    j=0;
+    while ((c = fgetc(in))!=-1) { // Faut s'arreter
+        //c = fgetc(in);
+        printf("ok - %d\n",c);
+        e = code(c,d);
+        printEntree(e);
         // Need to print serialisation
-        for (i=0 ; i<len ; i++){
-            buffer[j++] = m_buffer[i] ;
+        for (i=0 ; i<e.len ; i++){
+            buffer[j] = e.seqBits[i] ;
+            j++ ;
             if(j==8){
                 j=0 ;
                 carac = bitToCar(buffer) ;
+                printf("On print : %c\n" , carac);
                 fprintf(out , "%c" , carac) ;
             }
         }
-    }
-    while ((i>0)&&(i<8)){
-        buffer[i]=0 ;
-        i++ ;
     }
     if (i==8 )decalle(buffer,8,bufferSize);
 }

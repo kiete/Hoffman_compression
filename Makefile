@@ -1,7 +1,22 @@
-all: hoffman.exe
+all: hoffman.exe test.exe
 
-hoffman.exe: main.c caractere.o
-	clang main.c caractere.o -o hoffman.exe
+ecriture.o: ecriture.c ecriture.h
+	clang -c ecriture.c
 
 caractere.o: caractere.c
 	clang -c caractere.c
+
+arbre.o: arbre.c arbre.h
+	clang -c arbre.c
+
+codage.o: codage.c codage.h
+	clang -c codage.c
+
+test.exe: main_codage.c caractere.o arbre.o codage.o
+	clang main_codage.c caractere.o codage.o arbre.o -o test.exe
+
+hoffman.exe: main_compression.c caractere.o arbre.o codage.o ecriture.o
+	clang main_compression.c caractere.o arbre.o codage.o ecriture.o -o hoffman.exe
+
+clean: 
+	rm *.o

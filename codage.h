@@ -11,17 +11,18 @@ typedef struct entree_t
 
 typedef entree* dico;
 
-// etablit la correspondance d'un char avec sa sequence de bits
-void codage_dico(arbre a, dico, int MaxCar);
+void printEntree(entree e);
 
-// Construit un tableau de dico
+// etablit la correspondance d'un char avec sa sequence de bits
+void codage_dico(arbre a, entree[], int MaxCar);
+
+// Construit un tableau d'entrees
 dico get_table(arbre a);
 
-// Decode le caractere c par le dico d.
-void decode(char c, dico d);
+// Place c code par d dans
+entree code(unsigned char c, dico d);
 
 // parcours en profondeur qui etablit la correspondance d'un char avec sa sequence de bits
-void parcours_profondeur(arbre a, int indice, dico table);
-
+void parcours_profondeur(arbre a, int indice, entree table[], char *tab);
 
 #endif
