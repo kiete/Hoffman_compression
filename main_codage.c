@@ -10,13 +10,13 @@ int main()
     a = creer_arbre() ;
     set_carac(ajoute_gauche(a), 'a') ;
     set_carac(ajoute_droit(a), 'd') ;
-    //printf("Carac fils gauche : %c\n", carac(a->gauche)) ;
-    //printf("Carac fils droit : %c\n", carac(a->droit)) ;
+    //printf("Carac fils gauche : %c\n", carac(a->gauche));
+    //printf("Carac fils droit : %c\n", carac(a->droit));
     set_carac(ajoute_droit(a->gauche), 'b') ;
     set_carac(ajoute_gauche(a->gauche), 'c') ;
     set_carac(ajoute_gauche(gauche(a)->gauche), 'e') ;
     set_carac(ajoute_droit(gauche(a->gauche)), 'p') ;
-    //printf("Hauteur de l'arbre : %d\n\n", hauteur(a)) ;
+    //printf("Hauteur de l'arbre : %d\n\n", hauteur(a));
     //char tab[5];
     entree table[100];
     dico d = &(table[0]);

@@ -9,7 +9,7 @@ typedef struct entree_t
     int len;
 } entree ;
 
-typedef entree* dico;
+typedef entree *dico;
 
 void printEntree(entree e);
 
