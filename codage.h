@@ -9,16 +9,16 @@ typedef struct entree_t
     int len;
 } entree ;
 
-typedef entree* dico;
+typedef entree *dico;
 
 // etablit la correspondance d'un char avec sa sequence de bits
 void codage_dico(arbre a, dico, int MaxCar);
 
-// Construit un tableau de dico
-dico get_table(arbre a);
+// Construit un dico
+dico get_table(arbre a , int size);
 
 // Decode le caractere c par le dico d.
-void decode(char c, dico d);
+entree decode(char c, dico d);
 
 // parcours en profondeur qui etablit la correspondance d'un char avec sa sequence de bits
 void parcours_profondeur(arbre a, int indice, dico table);
