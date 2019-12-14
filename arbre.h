@@ -22,6 +22,9 @@ typedef element* liste ;
 // Vérifie si un arbre est vide
 int est_arbre_vide(arbre a); 
 
+// Vérifie si l'arbre est une feuille
+int est_feuille(arbre a);
+
 // Retourne l'adresse de la branche a gauche
 arbre gauche(arbre a);
 
@@ -54,9 +57,6 @@ void serialisation(arbre a, char *str, int* i);
 
 // Transforme une str en arbre
 arbre deserialisation(char *chaine, int *i);
-
-// Calcule le max entre 2 entiers
-int max (int a, int b);
 
 // Calcule la hauteur d'un arbre
 int hauteur(arbre a);
