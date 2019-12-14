@@ -72,8 +72,6 @@ void serialisation(arbre a, char*str, int*i);
 arbre deserialisation_sup(char *chaine);
 arbre deserialisation (char* chaine, int*i);
 
-// parcours en profondeur
-void parcours_profondeur(arbre a);
 
 
 #endif

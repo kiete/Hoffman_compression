@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "arbre.h"
+#include "codage.h"
 #define T_MAX 100
 
 int est_arbre_vide(arbre a){
@@ -110,11 +111,3 @@ arbre deserialisation (char* chaine, int*i){
     return pointeur;
 }
 
-// parcours en profondeur
-void parcours_profondeur(arbre a){
-    if(!est_arbre_vide(a)){
-        printf("%d\n", racine(a)) ;
-        parcours_profondeur(filsGauche(a)) ;
-        parcours_profondeur(filsDroit(a)) ;
-    }
-}
