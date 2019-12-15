@@ -1,22 +1,31 @@
+CC = clang
+CCOPTS = -Wall
+
 all: hoffman.exe test.exe
 
 ecriture.o: ecriture.c ecriture.h
-	gcc -c ecriture.c
+	clang -c ecriture.c
 
 caractere.o: caractere.c
-	gcc -c caractere.c
+	clang -c caractere.c
 
 arbre.o: arbre.c arbre.h
-	gcc -c arbre.c
+	clang -c arbre.c
+
+liste_ext.o: liste_ext.c liste_ext.h listes.h
+	${CC} ${CCOPTS} -c liste_ext.c
+
+huffman.o: huffman.h arbre.h listes.h liste_ext.h
+	${CC} ${CCOPTS} -c huffman.c
 
 codage.o: codage.c codage.h
-	gcc -c codage.c
+	clang -c codage.c
 
 test.exe: main_codage.c caractere.o arbre.o codage.o
-	gcc main_codage.c caractere.o codage.o arbre.o -o test.exe
+	clang main_codage.c caractere.o codage.o arbre.o -o test.exe
 
 hoffman.exe: main_compression.c caractere.o arbre.o codage.o ecriture.o
-	gcc main_compression.c caractere.o arbre.o codage.o ecriture.o -o hoffman.exe
+	clang main_compression.c caractere.o arbre.o codage.o ecriture.o -o hoffman.exe
 
 clean: 
 	rm *.o
