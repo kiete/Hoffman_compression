@@ -1,5 +1,6 @@
 #ifndef _ARBRE_H_
 #define _ARBRE_H_
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 typedef struct t_noeud
 {
@@ -21,9 +22,6 @@ typedef element* liste ;
 
 // Vérifie si un arbre est vide
 int est_arbre_vide(arbre a); 
-
-// Vérifie si l'arbre est une feuille
-int est_feuille(arbre a);
 
 // Retourne l'adresse de la branche a gauche
 arbre gauche(arbre a);
@@ -60,9 +58,6 @@ arbre deserialisation(unsigned char *chaine, int *i);
 
 // Calcule la hauteur d'un arbre
 int hauteur(arbre a);
-
-// Vérifie si un noeud est une feuille
-int est_feuille(arbre a);
 
 // Effectue la serialisation d'un arbre
 unsigned char *serialisation_plus(arbre a);
