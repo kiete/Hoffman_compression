@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 #include "arbre.h"
-#define max(a, b) (((a) < (b)) ? b : a)
-
 #define T_MAX 100
 
 int est_arbre_vide(arbre a){
@@ -44,8 +41,34 @@ void set_poids (arbre a , int pds){
     a->poids = pds ;
 }
 
-void set_carac(arbre a, char c){
+void set_carac(arbre a, unsigned char c){
     a->carac = c ;
+}
+
+arbre creer_arbre_complet(unsigned char e, int poids, arbre fg, arbre fd) {
+    arbre a ;
+    a = creer_arbre();
+    set_poids(a, poids) ;
+    set_carac(a, e) ;
+    a->gauche = fg ;
+    a->droit = fd ;
+
+    return a;
+}
+
+arbre creer_feuille(unsigned char e, int poids) {
+    return creer_arbre_complet(e, poids, creer_arbre(), creer_arbre());
+}
+
+int est_feuille (arbre a) {
+    if (est_arbre_vide(a))
+        return 0 ;
+    return (est_arbre_vide(a->gauche) && est_arbre_vide(a->droit)) ;
+}
+
+int max (int a, int b){
+    if (a>b) return a ;
+    else return b ;
 }
 
 // calcule la hauteur d'un arbre
@@ -56,9 +79,28 @@ int hauteur(arbre a){
     }
 }
 
-int est_feuille(arbre a){
-    return(droit(a)==NULL && gauche(a)==NULL) ;
+void print_arbre_aux(arbre a)
+{
+  if (est_arbre_vide(a))
+    printf(".") ;
+  else
+  {
+    printf("%c (", a->carac) ;
+    print_arbre_aux(a->gauche) ;
+    printf(") (");
+    print_arbre_aux(a->droit) ;
+    printf(")") ;
+  }
 }
+
+void print_arbre(arbre a) // Notation préfixe
+{
+  print_arbre_aux(a) ;
+  printf("\n") ;
+  printf ("%d\n", poids(a));
+  printf("\n");
+}
+
 
 char* serialisation_plus(arbre a){
     char *str;
