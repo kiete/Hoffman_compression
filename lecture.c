@@ -4,7 +4,7 @@
 
 
 char lecture(Bin_file * input){
-    char bit;
+    unsigned char bit;
     int ch;
 
     if (input->record_length == 0){
@@ -43,14 +43,17 @@ void chartobin(Bin_file * input, int c)
     }
 }
 
-void open_file(Bin_file * input, char * name){
-    input->file = fopen(name, "r+");
+void open_file_read(Bin_file * input, char * name){
+    input->file = fopen(name, "r");
+}
+void open_file_write(Bin_file *input, char *name){
+    input->file = fopen(name, "w");
 }
 
 void close_file(Bin_file * input){
     fclose(input->file);
 }
-
+/*
 int main(int argc, char **argv)
 {
     int bit;
@@ -75,3 +78,4 @@ int main(int argc, char **argv)
 
     return 0;
 }
+*/

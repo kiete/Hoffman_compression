@@ -3,22 +3,24 @@
 // Module Huffman
 
 #include "huffman.h"
+#include "arbre.h"
 
 int countCharInFile (int T[], FILE *f) {
-    char c ;
-    int n ;
+    unsigned char c;
+    int n , ic;
 
     n = 0 ;
     while (fscanf(f, "%c", &c) != EOF) {
-        if (T[c] == 0) n++ ;
-        T[c] = T[c] + 1 ;
+        ic = (int)c;
+        if (T[ic] == 0) n++ ;
+        T[ic] = T[ic] + 1 ;
     }
 
     rewind(f);
     return n ;
 }
 
-arbre charToLeaf (char c, int poids) {
+arbre charToLeaf (unsigned char c, int poids) {
     return creer_feuille (c, poids) ;
 }
 
@@ -39,31 +41,32 @@ arbre stringToHuffman (int T[]) {
         l = removeNode (l, &a1) ;
         l = removeNode (l, &a2) ;
 
-        tmp = creer_arbre_complet ('0', poids(a1) + poids(a2), a1, a2) ;
+        tmp = creer_arbre_complet ('.', poids(a1) + poids(a2), a1, a2) ;
         l = insertNode (l, tmp) ;   
     }
 
     return tete(l) ;
 }
 
-char findChar (arbre huffman, Bin_file * input) {
-    arbre tmp ;
-    arbre prev ;
-    char bit ;
+unsigned char findChar(arbre huffman, Bin_file *input)
+{
+    arbre tmp;
+    unsigned char bit;
 
-    tmp = huffman ;
-    prev = tmp ;
-   // bit = lecture(input) ; 
-    while (carac(tmp) == '0') {
-        prev = tmp ;
-        bit = lecture(input) ;
-        printf("bit : %d\n", bit); 
+    tmp = huffman;
+    while (!est_feuille(tmp))
+    {
+        bit = lecture(input);
+        //printf("bit : %d\n", bit);
 
-        if (bit == 1) {
-            tmp = tmp->droit ;
-        } else if (bit == 0) {
-            tmp = tmp->gauche ;
+        if (bit == 1)
+        {
+            tmp = tmp->droit;
+        }
+        else if (bit == 0)
+        {
+            tmp = tmp->gauche;
         }
     }
-    return carac(tmp) ;
+    return carac(tmp);
 }

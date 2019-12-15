@@ -57,7 +57,7 @@ arbre creer_arbre_complet(unsigned char e, int poids, arbre fg, arbre fd) {
 }
 
 arbre creer_feuille(unsigned char e, int poids) {
-    return creer_arbre_complet(e, poids, creer_arbre(), creer_arbre());
+    return creer_arbre_complet(e, poids, NULL, NULL);
 }
 
 int est_feuille (arbre a) {
@@ -97,14 +97,15 @@ void print_arbre(arbre a) // Notation préfixe
 }
 
 
-unsigned char* serialisation_plus(arbre a){
-    char *str;
+unsigned char* serialisation_plus(arbre a , int* len){
+    unsigned char *str;
     int i;
     str = malloc(sizeof(char) * T_MAX);
     i = 0;
     int* p_i = &i;
     serialisation(a,str,p_i);
     str[i] = 0;
+    *len = i;
     return str;
 }
 
@@ -135,8 +136,7 @@ arbre deserialisation (unsigned char* chaine, int*i){
         pointeur = NULL;
     } else if (chaine[*i]=='1'){
         (*i)++;
-        arbre pointeur = creer_arbre();
-        set_poids(pointeur,chaine[*i]);
+        pointeur = creer_arbre_complet(chaine[*i] , 0 , NULL , NULL);
         (*i)++;
         pointeur->gauche = (deserialisation(chaine,i));
         pointeur->droit = (deserialisation(chaine,i));

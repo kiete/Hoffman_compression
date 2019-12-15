@@ -21,10 +21,19 @@ typedef struct t_element
 typedef element* liste ;
 
 // Vérifie si un arbre est vide
-int est_arbre_vide(arbre a); 
+int est_arbre_vide(arbre a);
+
+// Verifie si a est une feuille
+int est_feuille(arbre a);
+
+arbre creer_feuille(unsigned char e, int poids);
 
 // Retourne l'adresse de la branche a gauche
 arbre gauche(arbre a);
+
+arbre creer_arbre_complet(unsigned char e, int poids, arbre fg, arbre fd);
+
+void print_arbre(arbre a);
 
 // Retourne l'adresse de la branche a droite
 arbre droit(arbre a);
@@ -60,7 +69,7 @@ arbre deserialisation(unsigned char *chaine, int *i);
 int hauteur(arbre a);
 
 // Effectue la serialisation d'un arbre
-unsigned char *serialisation_plus(arbre a);
+unsigned char *serialisation_plus(arbre a , int* len);
 void serialisation(arbre a, unsigned char *str, int *i);
 
 // Effectue la deserialisation d'un arbre

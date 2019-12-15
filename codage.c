@@ -3,6 +3,7 @@
 #include <string.h>
 #include "arbre.h"
 #include "codage.h"
+#include "huffman.h"
 
 void printEntree(entree e){
     printf("char : %c - codage : %s - longueur : %d\n", e.c, e.seqBits, e.len);
@@ -47,10 +48,12 @@ entree code(unsigned char c, dico d)
     return *d;
 }
 
-dico get_table (arbre a){
-    entree table[100];
-    dico d = &(table[0]);
-    unsigned char *tab = malloc(sizeof(hauteur(a) + 1));
+dico get_table (arbre a , int size){
+
+    entree table [256];
+    dico d = &table;
+
+    unsigned char *tab = malloc(hauteur(a) + 1);
     parcours_profondeur(a, 0, table, tab);
     return d;
 }

@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ecriture.h"
 #include "arbre.h"
 #include "codage.h"
 #include "lecture.h"
+#include "huffman.h"
+#define T_MAX 10000
 
 arbre fakeTree(void)
 {
@@ -20,45 +23,97 @@ arbre fakeTree(void)
     return a;
 }
 
-
-int main(int argc, char *argv[])
+void compress(char *file_in, char *file_out)
 {
     arbre a;
     dico d;
-    int n;
+    int n , len;
+    int occ[256] = {0};
     unsigned char *serial;
 
-    if (argc!=2){
-        printf("erreur, hoffman n'admet qu'un seul parametre !\n");
-        exit(1);
-    }
-    int occ[256] = {0};
-
     Bin_file *in = (Bin_file *)malloc(sizeof(Bin_file));
-    open_file(in, argv[1]);
+    open_file_read(in, file_in);
     // N=nb de char diff
     n = countCharInFile(occ, in->file);
     a = stringToHuffman(occ);
+    print_arbre(a);
+    serial = serialisation_plus(a , &len);
 
-    printf("ok\n");
-    d = get_table(a);
+    printf("%s\n", serial);
+
+    d = get_table(a , n);
     printf("ok\n");
 
     int i = 0;
-    for (i=0 ; i<n ; i++){
+    for (i = 0; i < n; i++) {
         printEntree(d[i]);
     }
 
     Bin_file *out = (Bin_file *)malloc(sizeof(Bin_file));
-    open_file(out, "test.txt" );
+    open_file_write(out, "test.txt");
 
-    fprintf(out->file, "%c", '0');
+    fprintf(out->file, "%d\n", a->poids);
 
-    serial = serialisation_plus(a);
-    printf("a=%s\n" , serial);
-    fprintf(out , "%s" , serial);
+    fprintf(out->file, "%d\n", len);
 
-    ecriture(in->file, out->file, d);
+    fprintf(out->file, "%s\n", serial);
+
+    printf("Y\n");
+    ecriture(in, out, d);
+
+    //close_file(in);
+    //close_file(out);
+    printf("Compression effectuee\n");
+}
+
+void extract(char *file_in, char *file_out){
+    arbre a;
+    int n , i , j , len;
+    unsigned char s[T_MAX];
+    unsigned char c;
+
+    Bin_file *in = (Bin_file *)malloc(sizeof(Bin_file));
+    Bin_file *out = (Bin_file *)malloc(sizeof(Bin_file));
+    in->fin = 0;
+    in->i_record = 0;
+    in->record_length = 0;
+
+    open_file_read(in,file_in);
+    open_file_write(out,file_out);
+
+    fscanf(in->file , "%d\n" , &n);
+    printf("n = %d\n" , n);
+
+    fscanf(in->file, "%d\n", &len);
+
+    j=0;
+    while (j <= len){
+        s[j++] = fgetc(in->file);
+    }
+    s[j] = 0;
+
+    a = deserialisation_sup(s);
+    print_arbre(a);
+
+    for (i=0 ; i<n ; i++ ){
+        fprintf(out->file , "%c", findChar(a,in));
+    }
+    //close_file(in);
+    //close_file(out);
+    printf("Extraction effectuee\n");
+}
+
+    int main(int argc, char *argv[])
+{
+
+    if (argc!=2){
+        printf("erreur, Huffman n'admet qu'un seul parametre !\n");
+        exit(1);
+    }
+
+    compress(argv[1], "test.txt");
+    
+    extract("test.txt" , "extrait.txt");
 
     return 0;
 }

@@ -14,10 +14,12 @@ typedef struct {
     char octet[8];
     int i_octet;
     int nb_octets;
+    char fin;
 } Bin_file;
 
 void close_file(Bin_file * input);
-void open_file(Bin_file * input, char * name);
+void open_file_read(Bin_file *input, char *name);
+void open_file_write(Bin_file * input, char * name);
 char lecture(Bin_file * input);
 void chartobin(Bin_file * input, int c);
 

@@ -16,13 +16,13 @@
 int countCharInFile (int T[], FILE *f) ;
 
 // renvoie un arbre à partir d'un char et d'un poids
-arbre charToLeaf (char c, int poids) ;
+arbre charToLeaf (unsigned char c, int poids) ;
 
 // Construit l'arbre de Huffman à partir de la table d'occurences
 arbre stringToHuffman (int T[]) ;
 
 // Avance dans l'arbre de huffman en fonction d'un flux de bits
-char findChar (arbre huffman, Bin_file * input);
+unsigned char findChar (arbre huffman, Bin_file * input);
 
 arbre fileToHuffman (FILE *f) ;
 

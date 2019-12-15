@@ -1,28 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "caractere.h"
 #include "arbre.h"
 #include "codage.h"
 #include "ecriture.h"
+#include "huffman.h"
+#include "lecture.h"
 
 // Buffersize est globale
 int bufferSize;
-
-void compressChar(unsigned char c, arbre a, unsigned char *tab, int* i){
-    unsigned char* miniBuffer;
-    int j,tabLen;
-    
-    miniBuffer = malloc(sizeof(miniBuffer));
-
-    // Ici minibuffer -> son tableau de bits codés
-    // Et tabLen -> longeur du tableau
-
-    // On append mimibuffer à la fin du tableau
-    for ( j=0 ; j<tabLen ; j++ , i++ ){
-        tab[*i] = miniBuffer[j];
-    }
-    return ;
-}
 
 unsigned char bitToCar(unsigned char *tab)
 {
@@ -38,7 +23,36 @@ unsigned char bitToCar(unsigned char *tab)
     return sum;
 }
 
-void ecriture(FILE *in, FILE *out, dico d)
+void ecrire_2 (Bin_file * output, char bit) {
+    unsigned char octet, b ;
+    int i ;
+    output->octet[output->i_octet++] = bit ;
+    if (output->i_octet == 8){
+        octet = 0 ;
+        b = 0x80 ;
+        for (i=0 ; i<8 ; i++){
+            if (output->octet[i] == '1'){
+                octet = octet|b ;
+            }
+            b = b>>1 ;
+        }
+        output->i_octet = 0 ;
+        output->record[output->i_record] = octet ;
+        output->i_record = output->i_record+1 ;
+        output->nb_octets = output->nb_octets+1 ;
+        fprintf(output->file, "%c", output->record[0]);
+        output->i_record = 0;
+        /*
+        if (output->i_record == BLOCK_SIZE){
+            //Ecriture de output->record dans output->file
+            fprintf(output->file , "%s" , output->record );
+            output->i_record = 0 ;
+        }
+        */
+    }
+}
+
+void ecriture(Bin_file* in, Bin_file* out, dico d)
 {
     int i , j;
     unsigned char c,  len, carac;
@@ -47,27 +61,41 @@ void ecriture(FILE *in, FILE *out, dico d)
     entree e;
 
     j=0;
-    while ((ci = fgetc(in)) != EOF){ // Faut s'arreter
-        //printf("on lit un carac \n");
-        //printf("%c\n" , c);
-        //printf("ok - %d\n",c);
+
+    if ((ci = fgetc(in->file)) == EOF){
+        exit (1);
+    }
+
+    do {
         c = (unsigned char) ci ;
-        printf("OK1\n");
         e = code(c,d);
-        printf("OK2\n");
-        printEntree(e);
+        //printf("%c\n" , c);
         for (i=0 ; i<e.len ; i++){
+            j++;
+            j %= 8;
+            //printf("j=%d e=%c\n", j, e.seqBits[i]);
+            ecrire_2(out, e.seqBits[i]);
+
+            /*
             buffer[j] = e.seqBits[i] ;
             j++ ;
             if(j==8){
                 j=0 ;
                 carac = bitToCar(buffer) ;
-                printf("On print : %d\n" , carac);
                 fprintf(out , "%c" , carac) ;
+                printf("On print %d \n" , carac);
             }
+            */
         }
-        
-    }
+    } while((ci = fgetc(in->file)) != EOF);
+    printf("ti\n");
     // Remplir de 0
+    while ((j > 0) && (j < 8))
+    {
+        ecrire_2(out, '0');
+        j++;
+        //printf("Boucle infinie\n");
+    }
+    printf("ti\n");
 }
 

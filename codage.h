@@ -17,7 +17,7 @@ void printEntree(entree e);
 void codage_dico(arbre a, entree[], int MaxCar);
 
 // Construit un tableau d'entrees
-dico get_table(arbre a);
+dico get_table(arbre a, int size);
 
 // Place c code par d dans
 entree code(unsigned char c, dico d);
