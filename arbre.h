@@ -1,6 +1,6 @@
 #ifndef _ARBRE_H_
 #define _ARBRE_H_
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
 
 typedef struct t_noeud
 {
