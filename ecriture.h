@@ -7,7 +7,6 @@
 // Transforme un caractere c en chaine de bits par a en partant de l'emplacement i de tab
 void compressChar(unsigned char c, arbre a, unsigned char *tab, int *i);
 
-
 // Transforme une chaine de 8 car en char
 unsigned char bitToCar(unsigned char *tab);
 

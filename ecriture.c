@@ -66,6 +66,7 @@ void ecriture(FILE *in, FILE *out, dico d)
                 fprintf(out , "%c" , carac) ;
             }
         }
+        
     }
     // Remplir de 0
 }

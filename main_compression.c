@@ -3,6 +3,7 @@
 #include "ecriture.h"
 #include "arbre.h"
 #include "codage.h"
+#include "lecture.h"
 
 arbre fakeTree(void)
 {
@@ -24,33 +25,40 @@ int main(int argc, char *argv[])
 {
     arbre a;
     dico d;
-    FILE *in,*out ;
+    int n;
     unsigned char *serial;
 
     if (argc!=2){
         printf("erreur, hoffman n'admet qu'un seul parametre !\n");
         exit(1);
     }
+    int occ[256] = {0};
 
-    a = fakeTree ();
+    Bin_file *in = (Bin_file *)malloc(sizeof(Bin_file));
+    open_file(in, argv[1]);
+    // N=nb de char diff
+    n = countCharInFile(occ, in->file);
+    a = stringToHuffman(occ);
+
     printf("ok\n");
     d = get_table(a);
     printf("ok\n");
 
     int i = 0;
-    for (i=0 ; i<4 ; i++){
+    for (i=0 ; i<n ; i++){
         printEntree(d[i]);
     }
-    
-    out = fopen("try.txt", "w");
-    in = fopen(argv[1], "r+");
 
-    fprintf(out, "%c", '0');
+    Bin_file *out = (Bin_file *)malloc(sizeof(Bin_file));
+    open_file(out, "test.txt" );
+
+    fprintf(out->file, "%c", '0');
+
     serial = serialisation_plus(a);
     printf("a=%s\n" , serial);
     fprintf(out , "%s" , serial);
 
-    ecriture(in, out, d);
+    ecriture(in->file, out->file, d);
 
     return 0;
 }

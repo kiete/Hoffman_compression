@@ -19,7 +19,7 @@ int poids(arbre a){
     return a->poids;
 }
 
-char carac(arbre a){
+unsigned char carac(arbre a){
     return a->carac;
 }
 
@@ -66,11 +66,6 @@ int est_feuille (arbre a) {
     return (est_arbre_vide(a->gauche) && est_arbre_vide(a->droit)) ;
 }
 
-int max (int a, int b){
-    if (a>b) return a ;
-    else return b ;
-}
-
 // calcule la hauteur d'un arbre
 int hauteur(arbre a){
     if(est_arbre_vide(a)) return 0 ;
@@ -102,7 +97,7 @@ void print_arbre(arbre a) // Notation préfixe
 }
 
 
-char* serialisation_plus(arbre a){
+unsigned char* serialisation_plus(arbre a){
     char *str;
     int i;
     str = malloc(sizeof(char) * T_MAX);
@@ -113,7 +108,7 @@ char* serialisation_plus(arbre a){
     return str;
 }
 
-void serialisation(arbre a, char*str, int*i){
+void serialisation(arbre a, unsigned char*str, int*i){
     if (a==NULL){
         str[*i] = '0';
         (*i)++;
@@ -127,13 +122,13 @@ void serialisation(arbre a, char*str, int*i){
     }
 }
 
-arbre deserialisation_sup(char *chaine){
+arbre deserialisation_sup(unsigned char *chaine){
     int i;
     i=0;
     return deserialisation(chaine,&i);
 }
 
-arbre deserialisation (char* chaine, int*i){
+arbre deserialisation (unsigned char* chaine, int*i){
     arbre pointeur ;
     if (chaine[*i]=='0'){
         (*i)++;
