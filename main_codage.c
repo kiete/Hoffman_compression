@@ -20,7 +20,7 @@ int main()
     //char tab[5];
     entree table[100];
     dico d = &(table[0]);
-    char *tab = malloc(sizeof(hauteur(a) + 1));
+    unsigned char *tab = malloc(sizeof(hauteur(a) + 1));
     parcours_profondeur(a, 0, table , tab);
     printf("essai\n");
     /*for(int i=0 ; i<5 ; i++){

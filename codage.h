@@ -4,8 +4,8 @@
 
 typedef struct entree_t
 {
-    char c;
-    char* seqBits;
+    unsigned char c;
+    unsigned char *seqBits;
     int len;
 } entree ;
 
@@ -23,6 +23,6 @@ dico get_table(arbre a);
 entree code(unsigned char c, dico d);
 
 // parcours en profondeur qui etablit la correspondance d'un char avec sa sequence de bits
-void parcours_profondeur(arbre a, int indice, entree table[], char *tab);
+void parcours_profondeur(arbre a, int indice, entree table[], unsigned char *tab);
 
 #endif

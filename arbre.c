@@ -22,7 +22,7 @@ int poids(arbre a){
     return a->poids;
 }
 
-char carac(arbre a){
+unsigned char carac(arbre a){
     return a->carac;
 }
 
@@ -44,7 +44,7 @@ void set_poids (arbre a , int pds){
     a->poids = pds ;
 }
 
-void set_carac(arbre a, char c){
+void set_carac(arbre a, unsigned char c){
     a->carac = c ;
 }
 
@@ -60,10 +60,10 @@ int est_feuille(arbre a){
     return(droit(a)==NULL && gauche(a)==NULL) ;
 }
 
-char* serialisation_plus(arbre a){
-    char *str;
+unsigned char* serialisation_plus(arbre a){
+    unsigned char *str;
     int i;
-    str = malloc(sizeof(char) * T_MAX);
+    str = malloc(sizeof(unsigned char) * T_MAX);
     i = 0;
     int* p_i = &i;
     serialisation(a,str,p_i);
@@ -71,27 +71,28 @@ char* serialisation_plus(arbre a){
     return str;
 }
 
-void serialisation(arbre a, char*str, int*i){
+void serialisation(arbre a, unsigned char*str, int*i){
     if (a==NULL){
         str[*i] = '0';
         (*i)++;
     }else{
         str[*i] = '1';
         (*i)++;
-        str[*i] = a->carac;
+        if (a->carac == 0) str[*i] = 'O';
+        else str[*i] = a->carac ;
         (*i)++;
         serialisation(a->gauche, str, i);
         serialisation(a->droit, str, i);
     }
 }
 
-arbre deserialisation_sup(char *chaine){
+arbre deserialisation_sup(unsigned char *chaine){
     int i;
     i=0;
     return deserialisation(chaine,&i);
 }
 
-arbre deserialisation (char* chaine, int*i){
+arbre deserialisation (unsigned char* chaine, int*i){
     arbre pointeur ;
     if (chaine[*i]=='0'){
         (*i)++;

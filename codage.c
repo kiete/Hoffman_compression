@@ -9,7 +9,7 @@ void printEntree(entree e){
 }
 
 // parcours en profondeur
-void parcours_profondeur(arbre a, int indice, entree table[], char* tab)
+void parcours_profondeur(arbre a, int indice, entree table[], unsigned char *tab)
 {
     
     static int j = 0 ;
@@ -25,7 +25,7 @@ void parcours_profondeur(arbre a, int indice, entree table[], char* tab)
             e.len=indice;
             e.c=carac(a);
             tab[indice] = 0 ;
-            char *tab2 = malloc(sizeof(indice + 1));
+            unsigned char *tab2 = malloc(sizeof(indice + 1));
             memcpy(tab2 , tab , indice + 1);
             e.seqBits = tab2 ;
             memcpy(&(table[j]) , &e , sizeof(entree));
@@ -50,7 +50,7 @@ entree code(unsigned char c, dico d)
 dico get_table (arbre a){
     entree table[100];
     dico d = &(table[0]);
-    char *tab = malloc(sizeof(hauteur(a) + 1));
+    unsigned char *tab = malloc(sizeof(hauteur(a) + 1));
     parcours_profondeur(a, 0, table, tab);
     return d;
 }

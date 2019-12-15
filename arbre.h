@@ -6,7 +6,7 @@ typedef struct t_noeud
     struct t_noeud *droit ;
     struct t_noeud *gauche;
     int poids ;
-    char carac ;
+    unsigned char carac ;
 }noeud;
 typedef noeud* arbre ;
 
@@ -35,7 +35,7 @@ arbre droit(arbre a);
 int poids(arbre a);
 
 // Retourne le caractere du noeud de a
-char carac(arbre a);
+unsigned char carac(arbre a);
 
 // Rencoie un pointeur sur un arbre vide
 arbre creer_arbre(void);
@@ -50,13 +50,13 @@ arbre ajoute_droit(arbre a);
 void set_poids(arbre a, int poids);
 
 // Fixe le caractere d'un noeud
-void set_carac(arbre a, char c);
+void set_carac(arbre a, unsigned char c);
 
 // Transforme un arbre en chaine de caractere
-void serialisation(arbre a, char *str, int* i);
+void serialisation(arbre a, unsigned char *str, int *i);
 
 // Transforme une str en arbre
-arbre deserialisation(char *chaine, int *i);
+arbre deserialisation(unsigned char *chaine, int *i);
 
 // Calcule la hauteur d'un arbre
 int hauteur(arbre a);
@@ -65,13 +65,11 @@ int hauteur(arbre a);
 int est_feuille(arbre a);
 
 // Effectue la serialisation d'un arbre
-char* serialisation_plus(arbre a);
-void serialisation(arbre a, char*str, int*i);
+unsigned char *serialisation_plus(arbre a);
+void serialisation(arbre a, unsigned char *str, int *i);
 
 // Effectue la deserialisation d'un arbre
-arbre deserialisation_sup(char *chaine);
-arbre deserialisation (char* chaine, int*i);
-
-
+arbre deserialisation_sup(unsigned char *chaine);
+arbre deserialisation(unsigned char *chaine, int *i);
 
 #endif
